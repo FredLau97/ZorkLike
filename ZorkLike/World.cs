@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZorkLike;
 
 namespace ZorkLike
 {
@@ -26,14 +27,30 @@ namespace ZorkLike
             area4 = new Area("Teapot Area", "Bring your teabags");
             area5 = new Area("Teabag area", "You are doomed");
 
-            area1.Connect(area2, area1.north, false);
-            area2.Connect(area3, area2.west, true);
-            area3.Connect(area4, area3.south, true);
-            area3.Connect(area5, area3.north, false);
-            area4.Connect(area1, area4.east, true);
+            area1.Connect(area2, Directions.North, true);
+            area2.Connect(area3, Directions.West, true);
+            area3.Connect(area4, Directions.South, true);
+            area3.Connect(area5, Directions.North, false);
+            area4.Connect(area1, Directions.East, true);
 
             startingArea = area1;
             currentArea = area1;
         }
+
+        public bool Go(Directions direction)
+        {
+            if (currentArea.areaConnections.ContainsKey(direction))
+            {
+                currentArea = currentArea.areaConnections[direction];
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("There is nothing that way.");
+                return false;
+            }
+        }
     }
+
+
 }

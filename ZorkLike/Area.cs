@@ -8,8 +8,8 @@ namespace ZorkLike
 {
     class Area
     {
-        string name;
-        string description;
+        public string name;
+        public string description;
         List<Item> items = new List<Item>();
 
         public Directions north = Directions.North;

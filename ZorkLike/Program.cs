@@ -12,68 +12,71 @@ namespace ZorkLike
         {
             World world = new World();
 
-            Console.WriteLine("Area 1 Directions");
-            Console.WriteLine(world.area1.areaConnections.ContainsKey(Directions.North));
-            Console.WriteLine(world.area1.areaConnections.ContainsKey(Directions.West));
-            Console.WriteLine(world.area1.areaConnections.ContainsKey(Directions.South));
-            Console.WriteLine(world.area1.areaConnections.ContainsKey(Directions.East));
-            Console.WriteLine("Area 1 Rooms");
-            Console.WriteLine(world.area1.areaConnections.ContainsValue(world.area1));
-            Console.WriteLine(world.area1.areaConnections.ContainsValue(world.area2));
-            Console.WriteLine(world.area1.areaConnections.ContainsValue(world.area3));
-            Console.WriteLine(world.area1.areaConnections.ContainsValue(world.area4));
-            Console.WriteLine(world.area1.areaConnections.ContainsValue(world.area5));
+            Console.WriteLine("Welcome to Zorkish!");
+            Console.WriteLine($"You are standing in {world.currentArea.name}");
+            while (true)
+            {
+                Console.WriteLine("Enter a command: ");
+                string command = Console.ReadLine();
+                string[] commands = command.Split(' ');
 
+                switch (commands[0])
+                {
+                    case "go":
+                        string dir;
+                        if (commands.Length < 2)
+                        {
+                            //WriteLine for directione
+                            dir = Console.ReadLine();
+                        }
+                        else
+                            dir = commands[1];
 
-            Console.WriteLine("\nArea 2:");
-            Console.WriteLine(world.area2.areaConnections.ContainsKey(Directions.North));
-            Console.WriteLine(world.area2.areaConnections.ContainsKey(Directions.West));
-            Console.WriteLine(world.area2.areaConnections.ContainsKey(Directions.South));
-            Console.WriteLine(world.area2.areaConnections.ContainsKey(Directions.East));
-            Console.WriteLine("Area 2 Rooms");
-            Console.WriteLine(world.area2.areaConnections.ContainsValue(world.area1));
-            Console.WriteLine(world.area2.areaConnections.ContainsValue(world.area2));
-            Console.WriteLine(world.area2.areaConnections.ContainsValue(world.area3));
-            Console.WriteLine(world.area2.areaConnections.ContainsValue(world.area4));
-            Console.WriteLine(world.area2.areaConnections.ContainsValue(world.area5));
+                        bool success = false;
+                        switch(dir)
+                        {
+                            case "north":
+                            case "n":
+                                success = world.Go(Directions.North);
+                                break;
+                            case "west":
+                            case "w":
+                                success = world.Go(Directions.West);
+                                break;
+                            case "south":
+                            case "s":
+                                success = world.Go(Directions.South);
+                                break;
+                            case "east":
+                            case "e":
+                                success = world.Go(Directions.North);
+                                break;
+                        }
+                        if (success)
+                            Console.WriteLine($"You have entered {world.currentArea.name}");
+                        else
+                            Console.WriteLine("There is nothing that way.");
+                        break;
 
-            Console.WriteLine("\nArea 3:");
-            Console.WriteLine(world.area3.areaConnections.ContainsKey(Directions.North));
-            Console.WriteLine(world.area3.areaConnections.ContainsKey(Directions.West));
-            Console.WriteLine(world.area3.areaConnections.ContainsKey(Directions.South));
-            Console.WriteLine(world.area3.areaConnections.ContainsKey(Directions.East));
-            Console.WriteLine("Area 3 Rooms");
-            Console.WriteLine(world.area3.areaConnections.ContainsValue(world.area1));
-            Console.WriteLine(world.area3.areaConnections.ContainsValue(world.area2));
-            Console.WriteLine(world.area3.areaConnections.ContainsValue(world.area3));
-            Console.WriteLine(world.area3.areaConnections.ContainsValue(world.area4));
-            Console.WriteLine(world.area3.areaConnections.ContainsValue(world.area5));
-
-            Console.WriteLine("\nArea 4:");
-            Console.WriteLine(world.area4.areaConnections.ContainsKey(Directions.North));
-            Console.WriteLine(world.area4.areaConnections.ContainsKey(Directions.West));
-            Console.WriteLine(world.area4.areaConnections.ContainsKey(Directions.South));
-            Console.WriteLine(world.area4.areaConnections.ContainsKey(Directions.East));
-            Console.WriteLine("Area 4 Rooms");
-            Console.WriteLine(world.area4.areaConnections.ContainsValue(world.area1));
-            Console.WriteLine(world.area4.areaConnections.ContainsValue(world.area2));
-            Console.WriteLine(world.area4.areaConnections.ContainsValue(world.area3));
-            Console.WriteLine(world.area4.areaConnections.ContainsValue(world.area4));
-            Console.WriteLine(world.area4.areaConnections.ContainsValue(world.area5));
-
-            Console.WriteLine("\nArea 5:");
-            Console.WriteLine(world.area5.areaConnections.ContainsKey(Directions.North));
-            Console.WriteLine(world.area5.areaConnections.ContainsKey(Directions.West));
-            Console.WriteLine(world.area5.areaConnections.ContainsKey(Directions.South));
-            Console.WriteLine(world.area5.areaConnections.ContainsKey(Directions.East));
-            Console.WriteLine("Area 5 Rooms");
-            Console.WriteLine(world.area5.areaConnections.ContainsValue(world.area1));
-            Console.WriteLine(world.area5.areaConnections.ContainsValue(world.area2));
-            Console.WriteLine(world.area5.areaConnections.ContainsValue(world.area3));
-            Console.WriteLine(world.area5.areaConnections.ContainsValue(world.area4));
-            Console.WriteLine(world.area5.areaConnections.ContainsValue(world.area5));
-
-            Console.ReadLine();
+                    case "examine":
+                        switch(commands[1])
+                        {
+                            case "area":
+                                // Method in World to print currentArea description
+                                break;
+                            default:
+                                Console.WriteLine("What the fuck do you wanna exanine?");
+                                break;
+                        }
+                        break;
+                    case "quit":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("The fuck you saying boy..");
+                        break;
+                }
+            }
         }
     }
 }
